@@ -54,10 +54,12 @@ urlsController.destroy = (request, response) => {
     })
 }
 
+//redirect to original url
 urlsController.getOriginalUrl = (request, response) => {
-    Url.find({hashedUrl : request.params.hash}, 'originalUrl')
+    Url.findOne({hashedUrl : request.params.hash}, 'originalUrl')
     .then((url) => {
-        response.json(url)
+       // response.json(url.originalUrl)
+        response.redirect(url.originalUrl);
     })
     .catch((error) => {
         response.json(error)
